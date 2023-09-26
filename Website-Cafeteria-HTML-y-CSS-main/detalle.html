@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="detalle.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+    />
+    <title>Detalles del Producto</title>
+  </head>
+  <body>
+    <h1>Detalles del Producto</h1>
+
+    <div id="detallesProducto">
+      <!-- Aquí se mostrarán los detalles del producto -->
+      <img id="imagenProducto" src="" alt="Imagen del Producto" />
+      <h2 id="nombreProducto"></h2>
+      <p id="descripcionProducto"></p>
+
+      <!-- Agrega esto dentro del div "#detallesProducto" -->
+      <!-- Dentro del bucle para mostrar detalles de cada producto -->
+      <div class="star-rating">
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
+        <i class="fa-regular fa-star"></i>
+      </div>
+
+      <p id="precioProducto"></p>
+    </div>
+    <script>
+      // Función para obtener el ID del producto desde la URL
+      function obtenerIdProductoDesdeURL() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        return urlParams.get("id");
+      }
+
+      // Función para cargar los detalles del producto desde el localStorage
+      function cargarDetallesDelProducto() {
+        // Obtener el ID del producto de la URL
+        const productoId = obtenerIdProductoDesdeURL();
+
+        // Obtener los productos del localStorage
+        const productos = JSON.parse(localStorage.getItem("productos"));
+
+        // Buscar el producto por ID
+        const producto = productos.find(
+          (item) => item.id === parseInt(productoId)
+        );
+
+        if (producto) {
+          // Mostrar los detalles del producto en la página
+          document.getElementById("imagenProducto").src = producto.imagen || ""; // Asegúrate de que el producto tenga una propiedad "imagen"
+          document.getElementById("nombreProducto").textContent =
+            producto.nombre;
+          document.getElementById(
+            "descripcionProducto"
+          ).textContent = `Descripción: ${producto.descripcion}`;
+          document.getElementById(
+            "precioProducto"
+          ).textContent = `Precio: $${producto.precio.toFixed(2)}`;
+        } else {
+          console.error("Producto no encontrado");
+        }
+      }
+
+      // Llamar a la función para cargar los detalles del producto cuando se carga la página
+      cargarDetallesDelProducto();
+
+      // Función para volver a la página principal
+      function volverAPaginaPrincipal() {
+        // Redirige al usuario a la página principal (index.html)
+        window.location.href = "index.html";
+      }
+      // Agrega esto al final de tu archivo JavaScript (script.js)
+      document.addEventListener("DOMContentLoaded", () => {
+        const starRatingContainers = document.querySelectorAll(".star-rating");
+
+        starRatingContainers.forEach((container) => {
+          const stars = container.querySelectorAll(".fa-star");
+          let userRating = 0;
+
+          stars.forEach((star, index) => {
+            star.addEventListener("click", () => {
+              userRating = index + 1;
+              updateStarRating(container, userRating);
+            });
+          });
+
+          // Función para actualizar la calificación y aplicar estilos
+          function updateStarRating(container, rating) {
+            const stars = container.querySelectorAll(".fa-star");
+            stars.forEach((star, index) => {
+              if (index < rating) {
+                star.classList.add("checked");
+              } else {
+                star.classList.remove("checked");
+              }
+            });
+          }
+        });
+      });
+    </script>
+
+    <!-- Botón para volver a la página principal -->
+    <button onclick="volverAPaginaPrincipal()">
+      Volver a la Página Principal
+    </button>
+
+    <!-- <script src="js/detalle.js"></script> -->
+  </body>
+</html>

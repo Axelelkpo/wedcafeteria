@@ -1,0 +1,65 @@
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+}
+
+/* Estilos para el contenedor de detalles del producto */
+#detallesProducto {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 500px;
+}
+
+/* Estilos para la imagen del producto */
+#imagenProducto {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+/* Estilos para el botón de volver a la página principal */
+button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+/* Estilos para las estrellas de calificación */
+.star-rating {
+  font-size: 24px; /* Tamaño de las estrellas */
+}
+
+.star-rating .fa-star {
+  color: #6200ff; /* Color de las estrellas no seleccionadas */
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star-rating .fa-star.checked {
+  color: #ff9900; /* Color de las estrellas seleccionadas */
+}
+@media (max-width: 320px) {
+  #detallesProducto {
+    margin: 10px;
+  }
+}
